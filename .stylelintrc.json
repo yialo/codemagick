@@ -1,6 +1,4 @@
-"use strict";
-
-module.exports = {
+{
   "rules": {
     "color-hex-case": "lower",
     "color-hex-length": "long",
@@ -150,4 +148,4 @@ module.exports = {
     "no-invalid-double-slash-comments": true,
     "no-missing-end-of-source-newline": true
   }
-};
+}
