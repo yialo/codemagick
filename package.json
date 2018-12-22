@@ -1,0 +1,25 @@
+{
+  "name": "codemagick",
+  "version": "1.0.0",
+  "description": "HTML Academy JavaScript educational project",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint js/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yialo/codemagick.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yialo/codemagick/issues"
+  },
+  "homepage": "https://github.com/yialo/codemagick#readme",
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-htmlacademy": "^0.5.2",
+    "prettier": "^1.15.3"
+  }
+}
