@@ -3,22 +3,29 @@
 window.GameConstants = {
   Fireball: {
     size: window.fireballSize || 24,
-    speed: window.getFireballSpeed || function (movingLeft) {
-      return movingLeft ? 2 : 5;
-    }
+    speed:
+      window.getFireballSpeed || function (movingLeft) {
+        return movingLeft ? 2 : 5;
+      }
   },
   Wizard: {
     speed: window.wizardSpeed || 2,
     width: window.wizardWidth || 61,
-    getHeight: window.getWizardHeight || function (width) {
-      return 1.377 * width;
-    },
-    getX: window.getWizardX || function (width) {
-      return width / 3;
-    },
-    getY: window.getWizardY || function (height) {
-      return height - 100;
-    }
+    getHeight:
+      window.getWizardHeight ||
+      function (width) {
+        return 1.377 * width;
+      },
+    getX:
+      window.getWizardX ||
+      function (width) {
+        return width / 3;
+      },
+    getY:
+      window.getWizardY ||
+      function (height) {
+        return height - 100;
+      }
   }
 };
 
@@ -53,9 +60,7 @@ window.Game = (function () {
    * Порядок прохождения уровней.
    * @type {Array.<Level>}
    */
-  var LevelSequence = [
-    Level.INTRO
-  ];
+  var LevelSequence = [Level.INTRO];
 
   /**
    * Начальный уровень.
@@ -150,7 +155,7 @@ window.Game = (function () {
       if (object.y < HEIGHT - object.height) {
         object.direction = object.direction & ~Direction.UP;
         object.direction = object.direction | Direction.DOWN;
-        object.y += object.speed * timeframe / 3;
+        object.y += (object.speed * timeframe) / 3;
       }
     }
 
@@ -268,7 +273,9 @@ window.Game = (function () {
         // уровне равна 2px за кадр.
         {
           direction: Direction.RIGHT,
-          height: window.GameConstants.Wizard.getHeight(window.GameConstants.Wizard.width),
+          height: window.GameConstants.Wizard.getHeight(
+              window.GameConstants.Wizard.width
+          ),
           speed: window.GameConstants.Wizard.speed,
           sprite: SpriteMap[ObjectType.ME],
           state: ObjectState.OK,
@@ -389,16 +396,18 @@ window.Game = (function () {
         this.state.startTime = this.state.levelStartTime;
       }
 
-      this._preloadImagesForLevel(function () {
-        // Предварительная отрисовка игрового экрана.
-        this.render();
+      this._preloadImagesForLevel(
+          function () {
+            // Предварительная отрисовка игрового экрана.
+            this.render();
 
-        // Установка обработчиков событий.
-        this._initializeGameListeners();
+            // Установка обработчиков событий.
+            this._initializeGameListeners();
 
-        // Запуск игрового цикла.
-        this.update();
-      }.bind(this));
+            // Запуск игрового цикла.
+            this.update();
+          }.bind(this)
+      );
     },
 
     /**
@@ -428,7 +437,8 @@ window.Game = (function () {
     _pauseListener: function (evt) {
       if (evt.keyCode === 32 && !this._deactivated) {
         evt.preventDefault();
-        var needToRestartTheGame = this.state.currentStatus === Verdict.WIN ||
+        var needToRestartTheGame =
+          this.state.currentStatus === Verdict.WIN ||
           this.state.currentStatus === Verdict.FAIL;
         this.initializeLevelAndStart(needToRestartTheGame);
 
@@ -444,11 +454,17 @@ window.Game = (function () {
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           if (window.renderStatistics) {
-            var statistics = this._generateStatistics(new Date() - this.state.startTime);
+            var statistics = this._generateStatistics(
+                new Date() - this.state.startTime
+            );
             var keys = this._shuffleArray(Object.keys(statistics));
-            window.renderStatistics(this.ctx, keys, keys.map(function (it) {
-              return statistics[it];
-            }));
+            window.renderStatistics(
+                this.ctx,
+                keys,
+                keys.map(function (it) {
+                  return statistics[it];
+                })
+            );
             return;
           }
           message = 'Вы победили Газебо!\nУра!';
@@ -472,7 +488,7 @@ window.Game = (function () {
       var minTimeInSec = 1000;
 
       var statistic = {
-        'Вы': time
+        Вы: time
       };
 
       for (var i = 0; i < NAMES.length; i++) {
@@ -584,11 +600,16 @@ window.Game = (function () {
         this.state.objects.push({
           direction: me.direction,
           height: window.GameConstants.Fireball.size,
-          speed: window.GameConstants.Fireball.speed(!!(me.direction & Direction.LEFT)),
+          speed: window.GameConstants.Fireball.speed(
+              !!(me.direction & Direction.LEFT)
+          ),
           sprite: SpriteMap[ObjectType.FIREBALL],
           type: ObjectType.FIREBALL,
           width: window.GameConstants.Fireball.size,
-          x: me.direction & Direction.RIGHT ? me.x + me.width : me.x - window.GameConstants.Fireball.size,
+          x:
+            me.direction & Direction.RIGHT
+              ? me.x + me.width
+              : me.x - window.GameConstants.Fireball.size,
           y: me.y + me.height / 2
         });
 
@@ -625,7 +646,6 @@ window.Game = (function () {
       if (!this.commonRules) {
         // Проверки, не зависящие от уровня, но влияющие на его состояние.
         this.commonRules = [
-
           /**
            * Если персонаж мертв, игра прекращается.
            * @param {Object} state
@@ -636,9 +656,9 @@ window.Game = (function () {
               return object.type === ObjectType.ME;
             })[0];
 
-            return me.state === ObjectState.DISPOSED ?
-              Verdict.FAIL :
-              Verdict.CONTINUE;
+            return me.state === ObjectState.DISPOSED
+              ? Verdict.FAIL
+              : Verdict.CONTINUE;
           },
 
           /**
@@ -656,9 +676,9 @@ window.Game = (function () {
            * @return {Verdict}
            */
           function (state) {
-            return Date.now() - state.startTime > 3 * 60 * 1000 ?
-              Verdict.FAIL :
-              Verdict.CONTINUE;
+            return Date.now() - state.startTime > 3 * 60 * 1000
+              ? Verdict.FAIL
+              : Verdict.CONTINUE;
           }
         ];
       }
@@ -705,8 +725,16 @@ window.Game = (function () {
       this.state.objects.forEach(function (object) {
         if (object.sprite) {
           var reversed = object.direction & Direction.LEFT;
-          var sprite = SpriteMap[object.type + (reversed ? REVERSED : '')] || SpriteMap[object.type];
-          this.ctx.drawImage(sprite.image, object.x, object.y, object.width, object.height);
+          var sprite =
+            SpriteMap[object.type + (reversed ? REVERSED : '')] ||
+            SpriteMap[object.type];
+          this.ctx.drawImage(
+              sprite.image,
+              object.x,
+              object.y,
+              object.width,
+              object.height
+          );
         }
       }, this);
     },
@@ -730,9 +758,11 @@ window.Game = (function () {
         case Verdict.CONTINUE:
           this.state.lastUpdated = Date.now();
           this.render();
-          requestAnimationFrame(function () {
-            this.update();
-          }.bind(this));
+          requestAnimationFrame(
+              function () {
+                this.update();
+              }.bind(this)
+          );
           break;
 
         case Verdict.WIN:

@@ -19,8 +19,6 @@
   "homepage": "https://github.com/yialo/codemagick#readme",
   "devDependencies": {
     "eslint": "^5.10.0",
-    "eslint-config-htmlacademy": "^0.5.2",
-    "eslint-plugin-prettier": "^3.0.0",
-    "prettier": "^1.15.3"
+    "eslint-config-htmlacademy": "^0.5.2"
   }
 }
