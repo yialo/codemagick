@@ -3,6 +3,9 @@
 var CLOUD_WIDTH = 420;
 var CLOUD_HEIGHT = 270;
 
+var names = ['Вы', 'Кекс', 'Катя', 'Игорь'];
+var times = [2725, 4025, 1244, 1339];
+
 var renderCloud = function (canvasContext, x, y, color) {
   canvasContext.fillStyle = color;
   canvasContext.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
