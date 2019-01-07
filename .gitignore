@@ -8,8 +8,8 @@ Thumbs.db
 *.psd
 *.sublime*
 *.code-workspace
-.vscode/
 npm-debug.*
+.vscode/
 source/css/*.css
 build/
 node_modules/
