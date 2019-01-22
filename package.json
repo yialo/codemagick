@@ -1,24 +1,24 @@
 {
-  "name": "codemagick",
-  "version": "1.0.0",
-  "description": "HTML Academy JavaScript educational project",
-  "main": "index.js",
-  "scripts": {
-    "test": "eslint js/"
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/yialo/codemagick/issues"
   },
+  "description": "HTML Academy JavaScript educational project",
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-htmlacademy": "^0.5.2"
+  },
+  "homepage": "https://github.com/yialo/codemagick#readme",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "codemagick",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yialo/codemagick.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yialo/codemagick/issues"
+  "scripts": {
+    "test": "eslint js/"
   },
-  "homepage": "https://github.com/yialo/codemagick#readme",
-  "devDependencies": {
-    "eslint": "^5.10.0",
-    "eslint-config-htmlacademy": "^0.5.2"
-  }
+  "version": "1.0.0"
 }
