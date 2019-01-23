@@ -131,6 +131,8 @@ var similarWizardsContainer = document.querySelector('.setup-similar');
 var similarWizardsList = similarWizardsContainer
   .querySelector('.setup-similar-list');
 
+var fragmentForSimilarWizards = document.createDocumentFragment();
+
 for (
   var wizardCounter = 0;
   wizardCounter < heroesData.length;
@@ -142,7 +144,8 @@ for (
       heroesData[wizardCounter].eyesColor
   );
 
-  similarWizardsList.appendChild(newWizard);
+  fragmentForSimilarWizards.appendChild(newWizard);
 }
 
+similarWizardsList.appendChild(fragmentForSimilarWizards);
 similarWizardsContainer.classList.remove('hidden');
