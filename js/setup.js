@@ -6,7 +6,6 @@ Revealing Setup section
 */
 
 var setupBlock = document.querySelector('.setup');
-setupBlock.classList.remove('hidden');
 
 /*
 Initial data
@@ -149,3 +148,16 @@ for (
 
 similarWizardsList.appendChild(fragmentForSimilarWizards);
 similarWizardsContainer.classList.remove('hidden');
+
+/* Events */
+
+var setupOpener = document.querySelector('.setup-open');
+var setupCloser = setupBlock.querySelector('.setup-close');
+
+setupOpener.addEventListener('click', function () {
+  setupBlock.classList.remove('hidden');
+});
+
+setupCloser.addEventListener('click', function () {
+  setupBlock.classList.add('hidden');
+});
