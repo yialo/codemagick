@@ -151,13 +151,49 @@ similarWizardsContainer.classList.remove('hidden');
 
 /* Events */
 
+var ENTER_KEYCODE = 13;
+var ESC_KEYCODE = 27;
+
 var setupOpener = document.querySelector('.setup-open');
+var setupOpenerIcon = setupOpener.querySelector('.setup-open-icon');
 var setupCloser = setupBlock.querySelector('.setup-close');
+var usernameInput = setupBlock.querySelector('.setup-user-name');
+
+var popupEscPressHandler = function (evt) {
+  if (
+    evt.keyCode === ESC_KEYCODE && document.activeElement !== usernameInput
+  ) {
+    evt.preventDefault();
+    setupBlock.classList.add('hidden');
+  }
+};
+
+var openPopup = function () {
+  setupBlock.classList.remove('hidden');
+  document.addEventListener('keydown', popupEscPressHandler);
+};
+
+var closePopup = function () {
+  setupBlock.classList.add('hidden');
+  document.removeEventListener('keydown', popupEscPressHandler);
+};
 
 setupOpener.addEventListener('click', function () {
-  setupBlock.classList.remove('hidden');
+  openPopup();
+});
+
+setupOpenerIcon.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
 });
 
 setupCloser.addEventListener('click', function () {
-  setupBlock.classList.add('hidden');
+  closePopup();
+});
+
+setupCloser.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
 });
