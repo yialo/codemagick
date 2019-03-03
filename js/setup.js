@@ -91,10 +91,6 @@ var generateEyesColor = function () {
   return selectRandomArrayElement(KEYWORDED_COLORS);
 };
 
-var generateFireballColor = function () {
-  return selectRandomArrayElement(HEX_COLORS);
-};
-
 var generateHeroData = function () {
   var generatedName = generateRandomName(FIRSTNAMES, LASTNAMES);
   var heroData = {};
@@ -192,7 +188,10 @@ var popupEscPressHandler = function (evt) {
   }
 };
 
-var ourWizardCoatClickHandler = function () {
+/* Sets random colors */
+
+/*
+  var ourWizardCoatClickHandler = function () {
   var newCoatColor = generateCoatColor();
   ourWizardCoat.style.fill = newCoatColor;
   ourWizardCoatInput.value = newCoatColor;
@@ -205,9 +204,51 @@ var ourWizardEyesClickHandler = function () {
 };
 
 var ourWizardFireballClickHandler = function () {
-  var newFireballColor = generateFireballColor();
+  var newFireballColor = selectRandomArrayElement(HEX_COLORS);
   ourWizardFireball.style.backgroundColor = newFireballColor;
   ourWizardFireballInput.value = newFireballColor;
+};
+*/
+
+/* Sets colors in ascending order */
+
+var coatColorCounter = 2;
+
+var ourWizardCoatClickHandler = function () {
+  var newCoatColor = RGB_COLORS[coatColorCounter - 1];
+  ourWizardCoat.style.fill = newCoatColor;
+  ourWizardCoatInput.value = newCoatColor;
+  if (coatColorCounter === RGB_COLORS.length) {
+    coatColorCounter = 1;
+  } else {
+    coatColorCounter += 1;
+  }
+};
+
+var eyesColorCounter = 2;
+
+var ourWizardEyesClickHandler = function () {
+  var newEyesColor = KEYWORDED_COLORS[eyesColorCounter - 1];
+  ourWizardEyes.style.fill = newEyesColor;
+  ourWizardEyesInput.value = newEyesColor;
+  if (eyesColorCounter === KEYWORDED_COLORS.length) {
+    eyesColorCounter = 1;
+  } else {
+    eyesColorCounter += 1;
+  }
+};
+
+var fireballColorCounter = 2;
+
+var ourWizardFireballClickHandler = function () {
+  var newFireballColor = HEX_COLORS[fireballColorCounter - 1];
+  ourWizardFireball.style.backgroundColor = newFireballColor;
+  ourWizardFireballInput.value = newFireballColor;
+  if (fireballColorCounter === HEX_COLORS.length) {
+    fireballColorCounter = 1;
+  } else {
+    fireballColorCounter += 1;
+  }
 };
 
 var openPopup = function () {
@@ -244,4 +285,3 @@ setupCloser.addEventListener('keydown', function (evt) {
     closePopup();
   }
 });
-
