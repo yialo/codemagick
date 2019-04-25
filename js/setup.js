@@ -212,9 +212,6 @@ similarWizardsContainer.classList.remove('hidden');
 
 /* Events */
 
-var ENTER_KEYCODE = 13;
-var ESC_KEYCODE = 27;
-
 var setupOpener = document.querySelector('.setup-open');
 var setupOpenerIcon = setupOpener.querySelector('.setup-open-icon');
 var setupCloser = setupBlock.querySelector('.setup-close');
@@ -229,9 +226,7 @@ var ourWizardFireballInput = ourWizard
   .querySelector('[name=\'fireball-color\']');
 
 var popupEscPressHandler = function (evt) {
-  if (
-    evt.keyCode === ESC_KEYCODE && document.activeElement !== usernameInput
-  ) {
+  if (window.keycodes.isEscKeycode(evt) && document.activeElement !== usernameInput) {
     evt.preventDefault();
     setupBlock.classList.add('hidden');
   }
@@ -321,7 +316,7 @@ setupOpener.addEventListener('click', function () {
 });
 
 setupOpenerIcon.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  if (window.keycodes.isEnterKeycode(evt)) {
     openPopup();
   }
 });
@@ -331,7 +326,7 @@ setupCloser.addEventListener('click', function () {
 });
 
 setupCloser.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  if (window.keycodes.isEnterKeycode(evt)) {
     closePopup();
   }
 });
