@@ -11,16 +11,17 @@
   var setupCloser = setup.querySelector('.setup-close');
   var usernameInput = setup.querySelector('.setup-user-name');
 
-  var openPopup = function () {
+  var openSetup = function () {
     setup.classList.remove('hidden');
     setupCloser.addEventListener('click', setupCloserClickHandler);
     setupCloser.addEventListener('keydown', setupCloserKeydownHandler);
     document.addEventListener('keydown', documentEscPressHandler);
     window.setupMove.addUserpicMousedownListener();
     window.changeColors.addClickListeners();
+    window.upload.addFormSubmitListener();
   };
 
-  var closePopup = function () {
+  var closeSetup = function () {
     setup.classList.add('hidden');
     setup.removeAttribute('style');
     setupCloser.removeEventListener('click', setupCloserClickHandler);
@@ -28,35 +29,42 @@
     document.removeEventListener('keydown', documentEscPressHandler);
     window.setupMove.removeUserpicMousedownListener();
     window.changeColors.removeClickListeners();
+    window.upload.removeFormSubmitListener();
   };
 
   var documentEscPressHandler = function (evt) {
     if (window.keycodes.isEscKeycode(evt) && document.activeElement !== usernameInput) {
       evt.preventDefault();
-      closePopup();
+      closeSetup();
     }
   };
 
   var setupOpenerClickHandler = function () {
-    openPopup();
+    openSetup();
   };
 
   var setupOpenerIconKeydownkHandler = function (evt) {
     if (isEnterKeycode(evt)) {
-      openPopup();
+      openSetup();
     }
   };
 
   var setupCloserClickHandler = function () {
-    closePopup();
+    closeSetup();
   };
 
   var setupCloserKeydownHandler = function (evt) {
     if (isEnterKeycode(evt)) {
-      closePopup();
+      closeSetup();
     }
   };
 
   setupOpener.addEventListener('click', setupOpenerClickHandler);
   setupOpenerIcon.addEventListener('keydown', setupOpenerIconKeydownkHandler);
+
+  window.setupShow = {
+    closeSetup: function () {
+      closeSetup();
+    },
+  };
 }());
