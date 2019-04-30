@@ -1,34 +1,40 @@
 'use strict';
 
 (function () {
-  var CLOUD_X = 110;
-  var CLOUD_Y = 10;
-  var CLOUD_WIDTH = 420;
-  var CLOUD_HEIGHT = 270;
-  var CLOUD_SHADOW_SHIFT = 10;
-  var CLOUD_SHADOW_X = CLOUD_X + CLOUD_SHADOW_SHIFT;
-  var CLOUD_SHADOW_Y = CLOUD_Y + CLOUD_SHADOW_SHIFT;
-
-  var CLOUD_PADDING_LEFT = 50;
-  var CLOUD_PADDING_TOP = 16;
-
-  var CLOUD_CONTENT_START_X = CLOUD_X + CLOUD_PADDING_LEFT;
-  var CLOUD_CONTENT_START_Y = CLOUD_Y + CLOUD_PADDING_TOP;
-
-  var TEXT_STRING_HEIGHT = 16;
-  var TEXT_SECOND_LINE_Y = CLOUD_CONTENT_START_Y + TEXT_STRING_HEIGHT;
-  var TEXT_MARGIN_BOTTOM = 12;
-
-  var BAR_MARGIN_TOP = 4;
-  var BAR_MARGIN_BOTTOM = 10;
-  var BAR_START_Y = TEXT_SECOND_LINE_Y + TEXT_STRING_HEIGHT * 2 + TEXT_MARGIN_BOTTOM;
-  var BAR_WIDTH = 40;
-  var BAR_MAX_HEIGHT = 150;
-  var BAR_GAP = 50;
+  var Cloud = {
+    Coord: {X: 110, Y: 10},
+    Padding: {LEFT: 50, TOP: 16},
+    WIDTH: 420,
+    HEIGHT: 270,
+    SHADOW_SHIFT: 10,
+  };
+  var CloudShadowCoord = {
+    X: Cloud.Coord.X + Cloud.SHADOW_SHIFT,
+    Y: Cloud.Coord.Y + Cloud.SHADOW_SHIFT,
+  };
+  var CloudContentStart = {
+    X: Cloud.Coord.X + Cloud.Padding.LEFT,
+    Y: Cloud.Coord.Y + Cloud.Padding.TOP,
+  };
+  var Text = {
+    STRING_HEIGHT: 16,
+    MARGIN_BOTTOM: 12,
+  };
+  var TEXT_SECOND_LINE = CloudContentStart.Y + Text.STRING_HEIGHT;
+  var Bar = {
+    Margin: {
+      TOP: 4,
+      BOTTOM: 10,
+    },
+    GAP: 50,
+    WIDTH: 40,
+    MAX_HEIGHT: 150,
+    START_Y: TEXT_SECOND_LINE + Text.STRING_HEIGHT * 2 + Text.MARGIN_BOTTOM,
+  };
 
   var renderCloud = function (ctx, x, y, color) {
     ctx.fillStyle = color;
-    ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
+    ctx.fillRect(x, y, Cloud.WIDTH, Cloud.HEIGHT);
   };
 
   var getMaxElement = function (arr) {
@@ -44,26 +50,30 @@
   };
 
   window.renderStatistics = function (ctx, names, times) {
-    renderCloud(ctx, CLOUD_SHADOW_X, CLOUD_SHADOW_Y, 'rgba(0, 0, 0, 0.7)');
-    renderCloud(ctx, CLOUD_X, CLOUD_Y, '#ffffff');
+    renderCloud(
+        ctx,
+        CloudShadowCoord.X,
+        CloudShadowCoord.Y,
+        'rgba(0, 0, 0, 0.7)'
+    );
+    renderCloud(ctx, Cloud.Coord.X, Cloud.Coord.Y, '#ffffff');
 
     ctx.fillStyle = '#000000';
     ctx.font = '16px PT Mono';
     ctx.textBaseline = 'hanging';
     ctx.fillText(
         'Ура вы победили!',
-        CLOUD_CONTENT_START_X,
-        CLOUD_CONTENT_START_Y
+        CloudContentStart.X,
+        CloudContentStart.Y
     );
     ctx.fillText(
         'Список результатов:',
-        CLOUD_CONTENT_START_X,
-        TEXT_SECOND_LINE_Y
+        CloudContentStart.X,
+        TEXT_SECOND_LINE
     );
 
     var maxTime = getMaxElement(times);
-
-    var timeColumnUnit = BAR_MAX_HEIGHT / maxTime;
+    var timeColumnUnit = Bar.MAX_HEIGHT / maxTime;
 
     for (var i = 0; i < names.length; i++) {
       if (names[i] === 'Вы') {
@@ -73,25 +83,25 @@
       }
 
       var barHeight = times[i] * timeColumnUnit;
-      var barRelativeY = BAR_MAX_HEIGHT - barHeight;
-      var barContentStartX = CLOUD_CONTENT_START_X + (BAR_WIDTH + BAR_GAP) * i;
+      var barRelativeY = Bar.MAX_HEIGHT - barHeight;
+      var barContentStartX = CloudContentStart.X + (Bar.WIDTH + Bar.GAP) * i;
 
       ctx.fillRect(
           barContentStartX,
-          BAR_START_Y + barRelativeY,
-          BAR_WIDTH,
+          Bar.START_Y + barRelativeY,
+          Bar.WIDTH,
           barHeight
       );
       ctx.fillStyle = '#000000';
       ctx.fillText(
           Math.round(times[i]),
           barContentStartX,
-          BAR_START_Y + barRelativeY - TEXT_STRING_HEIGHT - BAR_MARGIN_TOP
+          Bar.START_Y + barRelativeY - Text.STRING_HEIGHT - Bar.Margin.TOP
       );
       ctx.fillText(
           names[i],
           barContentStartX,
-          BAR_START_Y + BAR_MAX_HEIGHT + BAR_MARGIN_BOTTOM
+          Bar.START_Y + Bar.MAX_HEIGHT + Bar.Margin.BOTTOM
       );
     }
   };

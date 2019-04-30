@@ -18,11 +18,12 @@
   };
 
   var addSimilarWizards = function (wizardsData) {
+    var WIZARDS_AMOUNT = 4;
     var container = setup.querySelector('.setup-similar');
     var wizardsList = container.querySelector('.setup-similar-list');
     var fragmentForWizards = document.createDocumentFragment();
 
-    for (var i = 0; i < 4; i += 1) {
+    for (var i = 0; i < WIZARDS_AMOUNT; i += 1) {
       var newWizard = createSimilarWizard(wizardsData[i]);
       fragmentForWizards.appendChild(newWizard);
     }
