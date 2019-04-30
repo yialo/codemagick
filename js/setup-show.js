@@ -18,7 +18,7 @@
     document.addEventListener('keydown', documentEscPressHandler);
     window.setupMove.addUserpicMousedownListener();
     window.changeColors.addClickListeners();
-    window.upload.addFormSubmitListener();
+    window.upload.addFormEventListeners();
   };
 
   var closeSetup = function () {
@@ -29,7 +29,7 @@
     document.removeEventListener('keydown', documentEscPressHandler);
     window.setupMove.removeUserpicMousedownListener();
     window.changeColors.removeClickListeners();
-    window.upload.removeFormSubmitListener();
+    window.upload.removeFormEventListeners();
   };
 
   var documentEscPressHandler = function (evt) {
