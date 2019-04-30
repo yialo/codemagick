@@ -3,30 +3,13 @@
 (function () {
   var URL = 'https://js.dump.academy/code-and-magick';
 
-  var upload = function (data, successHandler, errorHandler) {
+  var upload = function (data, successHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.timeout = 5000;
 
     xhr.addEventListener('load', function () {
-      switch (xhr.status) {
-        case 200:
-          successHandler(xhr.response);
-          break;
-        case 404:
-          errorHandler('Адрес не существует');
-          break;
-        default:
-          errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
-
-    xhr.addEventListener('error', function () {
-      errorHandler('Ошибка сетевого соединения');
-    });
-
-    xhr.addEventListener('timeout', function () {
-      errorHandler('Данные не удалось отправить в течение ' + xhr.timeout / 1000 + ' секунд');
+      successHandler(xhr.response);
     });
 
     xhr.open('POST', URL);
