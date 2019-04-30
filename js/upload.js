@@ -6,7 +6,6 @@
   var upload = function (data, successHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    xhr.timeout = 5000;
 
     xhr.addEventListener('load', function () {
       successHandler(xhr.response);
