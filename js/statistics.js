@@ -39,13 +39,11 @@
 
   var getMaxElement = function (arr) {
     var maxElement = arr[0];
-
-    for (var i = 1; i < arr.length; i++) {
-      if (arr[i] > maxElement) {
-        maxElement = arr[i];
+    arr.forEach(function (element, i) {
+      if (i >= 1 && element > maxElement) {
+        maxElement = element;
       }
-    }
-
+    });
     return maxElement;
   };
 
@@ -75,14 +73,16 @@
     var maxTime = getMaxElement(times);
     var timeColumnUnit = Bar.MAX_HEIGHT / maxTime;
 
-    for (var i = 0; i < names.length; i++) {
-      if (names[i] === 'Вы') {
+    names.forEach(function (name, i) {
+      var time = times[i];
+
+      if (name === 'Вы') {
         ctx.fillStyle = '#ff0000';
       } else {
         ctx.fillStyle = 'hsl(240, ' + Math.random() * 100 + '%, 50%)';
       }
 
-      var barHeight = times[i] * timeColumnUnit;
+      var barHeight = time * timeColumnUnit;
       var barRelativeY = Bar.MAX_HEIGHT - barHeight;
       var barContentStartX = CloudContentStart.X + (Bar.WIDTH + Bar.GAP) * i;
 
@@ -94,15 +94,15 @@
       );
       ctx.fillStyle = '#000000';
       ctx.fillText(
-          Math.round(times[i]),
+          Math.round(time),
           barContentStartX,
           Bar.START_Y + barRelativeY - Text.STRING_HEIGHT - Bar.Margin.TOP
       );
       ctx.fillText(
-          names[i],
+          name,
           barContentStartX,
           Bar.START_Y + Bar.MAX_HEIGHT + Bar.Margin.BOTTOM
       );
-    }
+    });
   };
 }());
