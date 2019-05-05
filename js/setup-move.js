@@ -25,8 +25,8 @@
       dragged = true;
 
       var shift = getCoords(
-        moveEvt.clientX - startCoords.x,
-        moveEvt.clientY - startCoords.y
+          moveEvt.clientX - startCoords.x,
+          moveEvt.clientY - startCoords.y
       );
 
       startCoords = getCoords(moveEvt.clientX, moveEvt.clientY);
