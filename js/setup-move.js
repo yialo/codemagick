@@ -9,10 +9,14 @@
     userpic.removeEventListener('click', userpicClickPreventDefault);
   };
 
+  var getCoords = function (x, y) {
+    return {x: x, y: y};
+  };
+
   var userpicMousedownHandler = function (evt) {
     evt.preventDefault();
 
-    var startCoords = {x: evt.clientX, y: evt.clientY};
+    var startCoords = getCoords(evt.clientX, evt.clientY);
 
     var dragged = false;
 
@@ -20,12 +24,12 @@
       moveEvt.preventDefault();
       dragged = true;
 
-      var shift = {
-        x: moveEvt.clientX - startCoords.x,
-        y: moveEvt.clientY - startCoords.y,
-      };
+      var shift = getCoords(
+        moveEvt.clientX - startCoords.x,
+        moveEvt.clientY - startCoords.y
+      );
 
-      startCoords = {x: moveEvt.clientX, y: moveEvt.clientY};
+      startCoords = getCoords(moveEvt.clientX, moveEvt.clientY);
 
       setup.style.top = (setup.offsetTop + shift.y) + 'px';
       setup.style.left = (setup.offsetLeft + shift.x) + 'px';
