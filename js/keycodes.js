@@ -1,14 +1,15 @@
 'use strict';
 
 (function () {
-  var Keycode = {ENTER: 13, ESC: 27};
+  var checkKeycode = function (keyName) {
+    var Keycode = {ENTER: 13, ESC: 27};
+    return function (evt) {
+      return (evt.keyCode === Keycode[keyName]);
+    };
+  };
 
   window.keycodes = {
-    isEnterKeycode: function (evt) {
-      return (evt.keyCode === Keycode.ENTER);
-    },
-    isEscKeycode: function (evt) {
-      return (evt.keyCode === Keycode.ESC);
-    },
+    isEnterKeycode: checkKeycode('ENTER'),
+    isEscKeycode: checkKeycode('ESC'),
   };
 }());
