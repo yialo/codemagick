@@ -5,10 +5,10 @@
 
   window.keycodes = {
     isEnterKeycode: function (evt) {
-      return evt.keyCode === Keycode.ENTER;
+      return (evt.keyCode === Keycode.ENTER);
     },
     isEscKeycode: function (evt) {
-      return evt.keyCode === Keycode.ESC;
+      return (evt.keyCode === Keycode.ESC);
     },
   };
 }());
