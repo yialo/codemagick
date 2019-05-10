@@ -45,18 +45,21 @@
   };
 
   var PARTS = ['coat', 'eyes', 'fireball'];
+  var partHandlers = PARTS.map(function (item) {
+    return getWizardPartClickHandler(item);
+  });
 
   window.changeColors = {
     addClickListeners: function () {
-      PARTS.forEach(function (item) {
+      PARTS.forEach(function (item, i) {
         partMap[item].element
-          .addEventListener('click', getWizardPartClickHandler(item));
+          .addEventListener('click', partHandlers[i]);
       });
     },
     removeClickListeners: function () {
-      PARTS.forEach(function (item) {
+      PARTS.forEach(function (item, i) {
         partMap[item].element
-          .removeEventListener('click', getWizardPartClickHandler(item));
+          .removeEventListener('click', partHandlers[i]);
       });
     },
   };
