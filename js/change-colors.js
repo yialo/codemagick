@@ -2,7 +2,6 @@
 
 (function () {
   var wizard = window.domElements.setup.querySelector('.setup-player');
-  var PARTS = ['coat', 'eyes', 'fireball'];
   var partMap = {
     'coat': {
       element: wizard.querySelector('.wizard-coat'),
@@ -44,6 +43,8 @@
       input.value = newColor;
     };
   };
+
+  var PARTS = ['coat', 'eyes', 'fireball'];
 
   window.changeColors = {
     addClickListeners: function () {

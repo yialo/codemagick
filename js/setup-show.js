@@ -2,10 +2,6 @@
 
 (function () {
   var setup = window.domElements.setup;
-  var isEnterKeycode = function (evt) {
-    return window.keycodes.isEnterKeycode(evt);
-  };
-
   var setupOpener = document.querySelector('.setup-open');
   var setupOpenerIcon = setupOpener.querySelector('.setup-open-icon');
   var setupCloser = setup.querySelector('.setup-close');
@@ -43,8 +39,8 @@
     openSetup();
   };
 
-  var setupOpenerIconKeydownkHandler = function (evt) {
-    if (isEnterKeycode(evt)) {
+  var setupOpenerIconKeydownHandler = function (evt) {
+    if (window.keycodes.isEnterKeycode(evt)) {
       openSetup();
     }
   };
@@ -54,13 +50,13 @@
   };
 
   var setupCloserKeydownHandler = function (evt) {
-    if (isEnterKeycode(evt)) {
+    if (window.keycodes.isEnterKeycode(evt)) {
       closeSetup();
     }
   };
 
   setupOpener.addEventListener('click', setupOpenerClickHandler);
-  setupOpenerIcon.addEventListener('keydown', setupOpenerIconKeydownkHandler);
+  setupOpenerIcon.addEventListener('keydown', setupOpenerIconKeydownHandler);
 
   window.setupShow = {
     closeSetup: function () {

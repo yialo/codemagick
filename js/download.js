@@ -2,7 +2,6 @@
 
 (function () {
   var URL = 'https://js.dump.academy/code-and-magick/data';
-
   window.download = function (successHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
