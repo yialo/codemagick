@@ -38,7 +38,7 @@
       var targetElement = partMap[part].element;
       var newColor = window.utilities
         .getRandomArrayElement(partMap[part].colors);
-      var input = wizard.querySelector('input[name=\'' + part + '-color\']');
+      var input = wizard.querySelector('input[name=\"' + part + '-color\"]');
       targetElement.style[partMap[part].style] = newColor;
       input.value = newColor;
     };
