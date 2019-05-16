@@ -9,7 +9,7 @@
   };
 
   window.keycodes = {
-    isEnterKeycode: checkKeycode('ENTER'),
-    isEscKeycode: checkKeycode('ESC'),
+    isEnter: checkKeycode('ENTER'),
+    isEsc: checkKeycode('ESC'),
   };
 }());

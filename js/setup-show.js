@@ -26,10 +26,11 @@
     window.setupMove.removeUserpicMousedownListener();
     window.changeColors.removeClickListeners();
     window.upload.removeFormEventListeners();
+    window.upload.resetInputField();
   };
 
   var documentEscPressHandler = function (evt) {
-    if (window.keycodes.isEscKeycode(evt) && document.activeElement !== usernameInput) {
+    if (window.keycodes.isEsc(evt) && document.activeElement !== usernameInput) {
       evt.preventDefault();
       closeSetup();
     }
@@ -40,7 +41,7 @@
   };
 
   var setupOpenerIconKeydownHandler = function (evt) {
-    if (window.keycodes.isEnterKeycode(evt)) {
+    if (window.keycodes.isEnter(evt)) {
       openSetup();
     }
   };
@@ -50,7 +51,7 @@
   };
 
   var setupCloserKeydownHandler = function (evt) {
-    if (window.keycodes.isEnterKeycode(evt)) {
+    if (window.keycodes.isEnter(evt)) {
       closeSetup();
     }
   };

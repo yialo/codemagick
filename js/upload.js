@@ -61,5 +61,11 @@
         .removeEventListener('invalid', usernameFieldInvalidHandler);
       usernameField.removeEventListener('input', usernameFieldInputHandler);
     },
+    resetInputField: function () {
+      if (!usernameField.validity.valid) {
+        usernameField.value = 'Синий Пендальф';
+        usernameField.setCustomValidity('');
+      }
+    },
   };
 }());
