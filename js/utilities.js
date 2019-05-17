@@ -2,6 +2,7 @@
 
 (function () {
   window.utilities = {
+    URL: 'https://js.dump.academy/code-and-magick',
     getRandomArrayElement: function (targetArray) {
       var randomIndex = Math.floor(Math.random() * targetArray.length);
       return targetArray[randomIndex];

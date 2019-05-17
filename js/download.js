@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var URL = 'https://js.dump.academy/code-and-magick/data';
   window.download = function (successHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -23,7 +22,7 @@
       errorHandler('Данные не удалось получить в течение ' + xhr.timeout / 1000 + ' секунд');
     });
 
-    xhr.open('GET', URL);
+    xhr.open('GET', window.utilities.URL + '/data');
     xhr.send();
   };
 }());

@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var URL = 'https://js.dump.academy/code-and-magick';
-
   var upload = function (data, successHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -11,7 +9,7 @@
       successHandler(xhr.response);
     });
 
-    xhr.open('POST', URL);
+    xhr.open('POST', window.utilities.URL);
     xhr.send(data);
   };
 
