@@ -1,22 +1,6 @@
 'use strict';
 
 (function () {
-  var upload = function (data, successHandler, errorHandler) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-
-    xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
-        successHandler(xhr.response);
-      } else {
-        errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
-
-    xhr.open('POST', window.utilities.URL);
-    xhr.send(data);
-  };
-
   var setup = window.domElements.setup;
   var form = setup.querySelector('.setup-wizard-form');
   var usernameField = form.querySelector('.setup-user-name');
@@ -46,7 +30,7 @@
   };
 
   var formSubmitHandler = function (evt) {
-    upload(
+    window.backend.upload(
         new FormData(form),
         window.setupShow.closeSetup,
         window.similarWizards.showErrorMessage

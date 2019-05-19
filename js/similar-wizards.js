@@ -46,5 +46,8 @@
     },
   };
 
-  window.download(addSimilarWizards, window.similarWizards.showErrorMessage);
+  window.backend.download(
+      addSimilarWizards,
+      window.similarWizards.showErrorMessage
+  );
 }());
