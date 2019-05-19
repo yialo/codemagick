@@ -32,17 +32,19 @@
     container.classList.remove('hidden');
   };
 
-  var showErrorMessage = function (errMessage) {
-    var node = document.createElement('span');
-    node.style.position = 'absolute';
-    node.style.zIndex = '1';
-    node.style.top = '10px';
-    node.style.left = '50%';
-    node.style.transform = 'translateX(-50%)';
-    node.style.color = 'red';
-    node.textContent = errMessage;
-    setup.insertBefore(node, setup.firstChild);
+  window.similarWizards = {
+    showErrorMessage: function (errMessage) {
+      var node = document.createElement('span');
+      node.style.position = 'absolute';
+      node.style.zIndex = '1';
+      node.style.top = '10px';
+      node.style.left = '50%';
+      node.style.transform = 'translateX(-50%)';
+      node.style.color = 'red';
+      node.textContent = errMessage;
+      setup.insertBefore(node, setup.firstChild);
+    },
   };
 
-  window.download(addSimilarWizards, showErrorMessage);
+  window.download(addSimilarWizards, window.similarWizards.showErrorMessage);
 }());

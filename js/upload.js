@@ -1,12 +1,16 @@
 'use strict';
 
 (function () {
-  var upload = function (data, successHandler) {
+  var upload = function (data, successHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      successHandler(xhr.response);
+      if (xhr.status === 200) {
+        successHandler(xhr.response);
+      } else {
+        errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      }
     });
 
     xhr.open('POST', window.utilities.URL);
@@ -29,6 +33,7 @@
       self.setCustomValidity('');
     }
   };
+
   var usernameFieldInputHandler = function (evt) {
     var self = evt.target;
     if (self.value.length < 2) {
@@ -41,9 +46,11 @@
   };
 
   var formSubmitHandler = function (evt) {
-    upload(new FormData(form), function () {
-      window.setupShow.closeSetup();
-    });
+    upload(
+        new FormData(form),
+        window.setupShow.closeSetup,
+        window.similarWizards.showErrorMessage
+    );
     evt.preventDefault();
   };
 

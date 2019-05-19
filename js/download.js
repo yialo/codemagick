@@ -7,10 +7,15 @@
     xhr.timeout = 5000;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
-        successHandler(xhr.response);
-      } else {
-        errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      switch (xhr.status) {
+        case 200:
+          successHandler(xhr.response);
+          break;
+        case 404:
+          errorHandler('Неверный адрес');
+          break;
+        default:
+          errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 
