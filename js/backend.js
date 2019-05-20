@@ -2,6 +2,7 @@
 
 (function () {
   var TIMEOUT = 5000;
+  var URL = 'https://js.dump.academy/code-and-magick';
 
   /*
     TODO: определить xhr через расширение прототипа XMLHttpRequest
@@ -29,7 +30,7 @@
         errorHandler('Данные не удалось получить в течение ' + xhr.timeout / 1000 + ' секунд');
       });
 
-      xhr.open('POST', window.utilities.URL);
+      xhr.open('POST', URL);
       xhr.send(data);
     },
     download: function (successHandler, errorHandler) {
@@ -58,7 +59,7 @@
         errorHandler('Данные не удалось получить в течение ' + xhr.timeout / 1000 + ' секунд');
       });
 
-      xhr.open('GET', window.utilities.URL + '/data');
+      xhr.open('GET', URL + '/data');
       xhr.send();
     },
   };
