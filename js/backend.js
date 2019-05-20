@@ -3,6 +3,7 @@
 (function () {
   var TIMEOUT = 5000;
   var URL = 'https://js.dump.academy/code-and-magick';
+  var Status = {SUCCESS: 200, NOT_FOUND: 404};
 
   /*
     TODO: определить xhr через расширение прототипа XMLHttpRequest
@@ -15,7 +16,7 @@
       xhr.timeout = TIMEOUT;
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
+        if (xhr.status === Status.SUCCESS) {
           successHandler(xhr.response);
         } else {
           errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -40,10 +41,10 @@
 
       xhr.addEventListener('load', function () {
         switch (xhr.status) {
-          case 200:
+          case Status.SUCCESS:
             successHandler(xhr.response);
             break;
-          case 404:
+          case Status.NOT_FOUND:
             errorHandler('Неверный адрес');
             break;
           default:

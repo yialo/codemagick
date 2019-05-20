@@ -13,23 +13,17 @@
         'rgb(215, 210, 55)',
         'rgb(0, 0, 0)',
       ],
-      style: 'fill',
+      cssProperty: 'fill',
     },
     'eyes': {
       element: wizard.querySelector('.wizard-eyes'),
       colors: ['black', 'red', 'blue', 'yellow', 'green'],
-      style: 'fill',
+      cssProperty: 'fill',
     },
     'fireball': {
       element: wizard.querySelector('.setup-fireball-wrap'),
-      colors: [
-        '#ee4830',
-        '#30a8ee',
-        '#5ce6c0',
-        '#e848d5',
-        '#e6e848',
-      ],
-      style: 'backgroundColor',
+      colors: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'],
+      cssProperty: 'backgroundColor',
     },
   };
 
@@ -39,7 +33,7 @@
       var newColor = window.utilities
         .getRandomArrayElement(partMap[part].colors);
       var input = wizard.querySelector('input[name=\"' + part + '-color\"]');
-      targetElement.style[partMap[part].style] = newColor;
+      targetElement.style[partMap[part].cssProperty] = newColor;
       input.value = newColor;
     };
   };
