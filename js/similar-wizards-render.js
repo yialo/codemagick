@@ -1,7 +1,9 @@
 'use strict';
 
 (function () {
+  var AMOUNT_OF_SLOTS = 4;
   var setup = window.domElements.setup;
+
   var createSimilarWizard = function (wizardData) {
     var wizardElement = document.querySelector('#similar-wizard-template')
       .content.querySelector('.setup-similar-item')
@@ -18,21 +20,20 @@
   };
 
   var addSimilarWizards = function (wizardsData) {
-    var AMOUNT_OF_WIZARDS = 4;
     var container = setup.querySelector('.setup-similar');
     var wizardsList = container.querySelector('.setup-similar-list');
-    var fragmentForWizards = document.createDocumentFragment();
+    var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < AMOUNT_OF_WIZARDS; i += 1) {
+    for (var i = 0; i < AMOUNT_OF_SLOTS; i += 1) {
       var newWizard = createSimilarWizard(wizardsData[i]);
-      fragmentForWizards.appendChild(newWizard);
+      fragment.appendChild(newWizard);
     }
 
-    wizardsList.appendChild(fragmentForWizards);
+    wizardsList.appendChild(fragment);
     container.classList.remove('hidden');
   };
 
-  window.similarWizards = {
+  window.similarWizardsRender = {
     showErrorMessage: function (errMessage) {
       var node = document.createElement('span');
       node.style.position = 'absolute';
@@ -48,6 +49,6 @@
 
   window.backend.download(
       addSimilarWizards,
-      window.similarWizards.showErrorMessage
+      window.similarWizardsRender.showErrorMessage
   );
 }());
