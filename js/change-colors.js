@@ -67,6 +67,8 @@
       setWizardsRating(part, newColor);
       calculateTotalRating();
       sortSimilarWizards();
+      window.similarWizardsRender
+        .renewSimilarWizards(window.backend.currentWizards);
     };
   };
 
