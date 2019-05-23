@@ -34,7 +34,7 @@
   };
 
   var setWizardsRating = function (part, newColor) {
-    window.backend.currentWizards.forEach(function (wizard) {
+    window.similarWizardsRender.currentWizards.forEach(function (wizard) {
       var rating = 0;
       var dbKey = partMap[part].dbKey;
       if (wizard[dbKey] === newColor) {
@@ -45,13 +45,13 @@
   };
 
   var calculateTotalRating = function () {
-    window.backend.currentWizards.forEach(function (wizard) {
+    window.similarWizardsRender.currentWizards.forEach(function (wizard) {
       wizard.Rating.total = wizard.Rating.coat + wizard.Rating.eyes + wizard.Rating.fireball;
     });
   };
 
   var sortSimilarWizards = function () {
-    window.backend.currentWizards.sort(function (left, right) {
+    window.similarWizardsRender.currentWizards.sort(function (left, right) {
       return right.Rating.total - left.Rating.total;
     });
   };
@@ -68,7 +68,7 @@
       calculateTotalRating();
       sortSimilarWizards();
       window.similarWizardsRender
-        .renewSimilarWizards(window.backend.currentWizards);
+        .renewSimilarWizards(window.similarWizardsRender.currentWizards);
     };
   };
 

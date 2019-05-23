@@ -25,9 +25,9 @@
   };
 
   var addSimilarWizards = function (wizardsData) {
-    window.backend.initialWizards = wizardsData;
-    window.backend.currentWizards = wizardsData.slice();
-    window.backend.currentWizards.forEach(function (it) {
+    window.similarWizardsRender.initialWizards = wizardsData;
+    window.similarWizardsRender.currentWizards = wizardsData.slice();
+    window.similarWizardsRender.currentWizards.forEach(function (it) {
       it.Rating = {};
     });
     window.similarWizardsRender.renewSimilarWizards(wizardsData);
