@@ -5,11 +5,6 @@
   var setup = window.domElements.setup;
   var container = setup.querySelector('.setup-similar');
 
-  /*
-    TODO: оптимизировать рендеринг. Отрисовка 4 блоков волшебников
-    должна производиться один раз, далее - только изменение цветов.
-  */
-
   var createSimilarWizard = function (wizardData) {
     var wizardElement = document.querySelector('#similar-wizard-template')
       .content.querySelector('.setup-similar-item')

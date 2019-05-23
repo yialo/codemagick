@@ -15,32 +15,38 @@
       ],
       cssProperty: 'fill',
       dbKey: 'colorCoat',
-      ratingMark: 2,
+      rating: 2,
     },
     'eyes': {
       element: player.querySelector('.wizard-eyes'),
       colors: ['black', 'red', 'blue', 'yellow', 'green'],
       cssProperty: 'fill',
       dbKey: 'colorEyes',
-      ratingMark: 1,
+      rating: 1,
     },
     'fireball': {
       element: player.querySelector('.setup-fireball-wrap'),
       colors: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'],
       cssProperty: 'backgroundColor',
       dbKey: 'colorFireball',
-      ratingMark: 1,
+      rating: 1,
     },
   };
 
-  var setWizardsRating = function (part, newColor) {
+  var CurrentColor = {
+    coat: 'rgb(101, 137, 164)',
+    eyes: 'black',
+    fireball: '#ee4830',
+  };
+
+  var setWizardsRank = function (part, newColor) {
     window.similarWizardsRender.currentWizards.forEach(function (wizard) {
-      var rating = 0;
+      var rank = 0;
       var dbKey = partMap[part].dbKey;
       if (wizard[dbKey] === newColor) {
-        rating += partMap[part].ratingMark;
+        rank += partMap[part].rating;
       }
-      wizard.Rating[part] = rating;
+      wizard.Rating[part] = rank;
     });
   };
 
@@ -56,19 +62,31 @@
     });
   };
 
+  var getNewColor = function (part, currentColor) {
+    var length = partMap[part].colors.length;
+    var currentColorIndex = partMap[part].colors.indexOf(currentColor);
+    var newColor;
+    if (currentColorIndex === length - 1) {
+      newColor = partMap[part].colors[0];
+    } else {
+      newColor = partMap[part].colors[currentColorIndex + 1];
+    }
+    CurrentColor[part] = newColor;
+    return newColor;
+  };
+
   var getWizardPartClickHandler = function (part) {
     return function () {
       var targetElement = partMap[part].element;
-      var newColor = window.utilities
-        .getRandomArrayElement(partMap[part].colors);
+      var newColor = getNewColor(part, CurrentColor[part]);
       var input = player.querySelector('input[name=\"' + part + '-color\"]');
       targetElement.style[partMap[part].cssProperty] = newColor;
       input.value = newColor;
-      setWizardsRating(part, newColor);
-      calculateTotalRating();
-      sortSimilarWizards();
-      window.similarWizardsRender
-        .renewSimilarWizards(window.similarWizardsRender.currentWizards);
+      // setWizardsRank(part, newColor);
+      // calculateTotalRating();
+      // sortSimilarWizards();
+      // window.similarWizardsRender
+      //   .renewSimilarWizards(window.similarWizardsRender.currentWizards);
     };
   };
 
