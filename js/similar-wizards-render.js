@@ -1,5 +1,9 @@
 'use strict';
 
+/*
+  TODO: обдумать правильное разбиение на модули. Особенно внимательно пересмотреть similarWizards и changeColors.
+*/
+
 (function () {
   var AMOUNT_OF_SLOTS = 4;
   var setup = window.domElements.setup;
@@ -20,11 +24,7 @@
   };
 
   var addSimilarWizards = function (wizardsData) {
-    window.similarWizardsRender.initialWizards = wizardsData;
-    window.similarWizardsRender.currentWizards = wizardsData.slice();
-    window.similarWizardsRender.currentWizards.forEach(function (it) {
-      it.Rating = {};
-    });
+    window.similarWizardsRender.data = wizardsData;
     window.similarWizardsRender.renewSimilarWizards(wizardsData);
     container.classList.remove('hidden');
   };

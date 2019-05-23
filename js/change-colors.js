@@ -14,83 +14,85 @@
         'rgb(0, 0, 0)',
       ],
       cssProperty: 'fill',
-      dbKey: 'colorCoat',
-      rating: 2,
+      databaseKey: 'colorCoat',
+      rating: 3,
     },
     'eyes': {
       element: player.querySelector('.wizard-eyes'),
       colors: ['black', 'red', 'blue', 'yellow', 'green'],
       cssProperty: 'fill',
-      dbKey: 'colorEyes',
+      databaseKey: 'colorEyes',
       rating: 1,
     },
     'fireball': {
       element: player.querySelector('.setup-fireball-wrap'),
       colors: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'],
       cssProperty: 'backgroundColor',
-      dbKey: 'colorFireball',
+      databaseKey: 'colorFireball',
       rating: 1,
     },
   };
-
   var CurrentColor = {
     coat: 'rgb(101, 137, 164)',
     eyes: 'black',
     fireball: '#ee4830',
   };
+  var PARTS = ['coat', 'eyes', 'fireball'];
 
-  var setWizardsRank = function (part, newColor) {
-    window.similarWizardsRender.currentWizards.forEach(function (wizard) {
-      var rank = 0;
-      var dbKey = partMap[part].dbKey;
-      if (wizard[dbKey] === newColor) {
+  var getRank = function (wizard) {
+    var rank = 0;
+    PARTS.forEach(function (part) {
+      var key = partMap[part].databaseKey;
+      if (wizard[key] === CurrentColor[part]) {
         rank += partMap[part].rating;
       }
-      wizard.Rating[part] = rank;
     });
+    return rank;
   };
 
-  var calculateTotalRating = function () {
-    window.similarWizardsRender.currentWizards.forEach(function (wizard) {
-      wizard.Rating.total = wizard.Rating.coat + wizard.Rating.eyes + wizard.Rating.fireball;
-    });
-  };
-
-  var sortSimilarWizards = function () {
-    window.similarWizardsRender.currentWizards.sort(function (left, right) {
-      return right.Rating.total - left.Rating.total;
-    });
-  };
-
-  var getNewColor = function (part, currentColor) {
-    var length = partMap[part].colors.length;
-    var currentColorIndex = partMap[part].colors.indexOf(currentColor);
-    var newColor;
-    if (currentColorIndex === length - 1) {
-      newColor = partMap[part].colors[0];
-    } else {
-      newColor = partMap[part].colors[currentColorIndex + 1];
+  var compareNames = function (left, right) {
+    if (left < right) {
+      return -1;
+    } else if (left > right) {
+      return 1;
     }
-    CurrentColor[part] = newColor;
-    return newColor;
+    return 0;
+  };
+
+  var getSorterWizards = function () {
+    return window.similarWizardsRender.data
+      .slice().sort(function (left, right) {
+        var rankDiff = getRank(right) - getRank(left);
+        if (rankDiff === 0) {
+          rankDiff = compareNames(left.name, right.name);
+        }
+        return rankDiff;
+      });
+  };
+
+  var changeCurrentColor = function (part) {
+    var length = partMap[part].colors.length;
+    var currentColorIndex = partMap[part].colors.indexOf(CurrentColor[part]);
+    if (currentColorIndex === length - 1) {
+      CurrentColor[part] = partMap[part].colors[0];
+    } else {
+      CurrentColor[part] = partMap[part].colors[currentColorIndex + 1];
+    }
   };
 
   var getWizardPartClickHandler = function (part) {
     return function () {
-      var targetElement = partMap[part].element;
-      var newColor = getNewColor(part, CurrentColor[part]);
+      var map = partMap[part];
+      var targetElement = map.element;
+      changeCurrentColor(part);
       var input = player.querySelector('input[name=\"' + part + '-color\"]');
-      targetElement.style[partMap[part].cssProperty] = newColor;
-      input.value = newColor;
-      // setWizardsRank(part, newColor);
-      // calculateTotalRating();
-      // sortSimilarWizards();
-      // window.similarWizardsRender
-      //   .renewSimilarWizards(window.similarWizardsRender.currentWizards);
+      targetElement.style[map.cssProperty] = CurrentColor[part];
+      input.value = CurrentColor[part];
+      window.similarWizardsRender
+        .renewSimilarWizards(getSorterWizards());
     };
   };
 
-  var PARTS = ['coat', 'eyes', 'fireball'];
   var partHandlers = PARTS.map(function (part) {
     return getWizardPartClickHandler(part);
   });
