@@ -5,8 +5,12 @@
     _Coord: {X: 110, Y: 10},
     _Offset: {X: 50, Y: 16},
     _Size: {X: 420, Y: 270},
+    SHIFT: 10,
     getCoord: function (axis) {
       return this._Coord[axis];
+    },
+    getShadowCoord: function (axis) {
+      return this.getCoord(axis) + this.SHIFT;
     },
     getOffset: function (axis) {
       return this._Offset[axis];
@@ -16,13 +20,6 @@
     },
     getContentStart: function (axis) {
       return this.getCoord(axis) + this.getOffset(axis);
-    },
-  };
-
-  var CloudShadow = {
-    SHIFT: 10,
-    getCoord: function (axis) {
-      return Cloud.getCoord(axis) + this.SHIFT;
     },
   };
 
@@ -62,8 +59,8 @@
   window.renderStatistics = function (ctx, names, times) {
     renderRectangle(
         ctx,
-        CloudShadow.getCoord('X'),
-        CloudShadow.getCoord('Y'),
+        Cloud.getShadowCoord('X'),
+        Cloud.getShadowCoord('Y'),
         'rgba(0, 0, 0, 0.7)'
     );
     renderRectangle(ctx, Cloud.getCoord('X'), Cloud.getCoord('Y'), '#ffffff');
