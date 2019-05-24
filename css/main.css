@@ -43,6 +43,10 @@ button {
   border: 0;
 }
 
+template {
+  display: none;
+}
+
 *[tabindex]:focus, button:focus, input:focus {
   outline: none;
   box-shadow: 0 0 10px #fff000;
@@ -883,4 +887,12 @@ input[type=radio]:checked + .review-mark-label {
 
   left: 0;
   top: 0;
+}
+
+.wizard-coat {
+  fill: #6589a4;
+}
+
+.svg-symbols {
+  display: none;
 }

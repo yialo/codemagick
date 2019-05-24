@@ -9,7 +9,7 @@
   <body>
 
   <header>
-    <svg style="display: none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 86">
+    <svg class="svg-symbols" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 86">
       <g id="wizard">
         <g id="wizard-coat">
           <polygon points="19 67 19 59 14 59 14 82 9 82 9 86 23 86 23 67 19 67"/>
@@ -51,7 +51,7 @@
     <div class="demo"></div>
 
     <div class="setup-open">
-      <img src="img/user-1.jpg" class="setup-open-icon" tabindex="0">
+      <img class="setup-open-icon" src="img/user-1.jpg" alt="Аватар пользователя" tabindex="0">
     </div>
   </header>
 
@@ -65,11 +65,11 @@
       <div class="setup-title">
         <div class="setup-user">
           <div class="upload">
-            <img class="setup-user-pic" src="img/user-1.jpg"/>
+            <img class="setup-user-pic" src="img/user-1.jpg" alt="Аватар пользователя">
             <input type="file" name="avatar">
           </div>
           <label>
-            <input class="setup-user-name" type="text" name="username" value="Синий Пендальф" minlength="2" maxlength="25" required/>
+            <input class="setup-user-name" type="text" name="username" value="Синий Пендальф" minlength="2" maxlength="25" required>
           </label>
         </div>
 
@@ -94,7 +94,7 @@
           <div class="setup-wizard-wrap">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 86" class="setup-wizard">
               <g class="wizard">
-                <use xlink:href="#wizard-coat" class="wizard-coat" style="fill: #6589a4;"></use>
+                <use xlink:href="#wizard-coat" class="wizard-coat"></use>
                 <use xlink:href="#wizard-head" class="wizard-head"></use>
                 <use xlink:href="#wizard-eyes" class="wizard-eyes"></use>
                 <use xlink:href="#wizard-hands" class="wizard-hands"></use>
@@ -149,7 +149,7 @@
     <p><a href="http://htmlacademy.ru" class="footer-link"><img src="img/htmlacademy-logo.png" alt="HTML Academy" width="130">Сделано в HTML Academy</a>в 2017 году</p>
   </footer>
 
-  <template id="similar-wizard-template" style="display: none;">
+  <template id="similar-wizard-template">
     <div class="setup-similar-item">
       <div class="setup-similar-content">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 86" class="setup-similar-wizard">
