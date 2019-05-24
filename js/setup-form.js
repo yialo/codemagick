@@ -33,7 +33,7 @@
     window.backend.upload(
         new FormData(form),
         window.setupShow.closeSetup,
-        window.similarWizardsRender.showErrorMessage
+        window.similarWizards.showErrorMessage
     );
     evt.preventDefault();
   };

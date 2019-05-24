@@ -1,14 +1,6 @@
 'use strict';
 
-/*
-  TODO: обдумать правильное разбиение на модули. Особенно внимательно пересмотреть similarWizards и changeColors.
-*/
-
 (function () {
-  var AMOUNT_OF_SLOTS = 4;
-  var setup = window.domElements.setup;
-  var container = setup.querySelector('.setup-similar');
-
   var createSimilarWizard = function (wizardData) {
     var wizardElement = document.querySelector('#similar-wizard-template')
       .content.querySelector('.setup-similar-item')
@@ -23,13 +15,18 @@
     return wizardElement;
   };
 
+  var setup = window.domElements.setup;
+  var container = setup.querySelector('.setup-similar');
   var addSimilarWizards = function (wizardsData) {
-    window.similarWizardsRender.data = wizardsData;
-    window.similarWizardsRender.renewSimilarWizards(wizardsData);
+    window.similarWizards.data = wizardsData;
+    window.similarWizards
+      .renewSimilarWizards(window.changeColors.getSorterWizards());
     container.classList.remove('hidden');
   };
 
-  window.similarWizardsRender = {
+  var AMOUNT_OF_SLOTS = 4;
+
+  window.similarWizards = {
     renewSimilarWizards: function (wizardsData) {
       var wizardsList = container.querySelector('.setup-similar-list');
       var fragment = document.createDocumentFragment();
@@ -59,6 +56,6 @@
 
   window.backend.download(
       addSimilarWizards,
-      window.similarWizardsRender.showErrorMessage
+      window.similarWizards.showErrorMessage
   );
 }());

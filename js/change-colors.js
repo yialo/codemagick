@@ -4,7 +4,7 @@
   var player = window.domElements.setup.querySelector('.setup-player');
   var partMap = {
     'coat': {
-      element: player.querySelector('.wizard-coat'),
+      selector: '.wizard-coat',
       colors: [
         'rgb(101, 137, 164)',
         'rgb(241, 43, 107)',
@@ -15,17 +15,17 @@
       ],
       cssProperty: 'fill',
       databaseKey: 'colorCoat',
-      rating: 3,
+      rating: 4,
     },
     'eyes': {
-      element: player.querySelector('.wizard-eyes'),
+      selector: '.wizard-eyes',
       colors: ['black', 'red', 'blue', 'yellow', 'green'],
       cssProperty: 'fill',
       databaseKey: 'colorEyes',
-      rating: 1,
+      rating: 2,
     },
     'fireball': {
-      element: player.querySelector('.setup-fireball-wrap'),
+      selector: '.setup-fireball-wrap',
       colors: ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'],
       cssProperty: 'backgroundColor',
       databaseKey: 'colorFireball',
@@ -60,8 +60,8 @@
   };
 
   var getSorterWizards = function () {
-    return window.similarWizardsRender.data
-      .slice().sort(function (left, right) {
+    return window.similarWizards.data.slice()
+      .sort(function (left, right) {
         var rankDiff = getRank(right) - getRank(left);
         if (rankDiff === 0) {
           rankDiff = compareNames(left.name, right.name);
@@ -70,10 +70,9 @@
       });
   };
 
-  var changeCurrentColor = function (part) {
-    var length = partMap[part].colors.length;
+  var incrementColor = function (part) {
     var currentColorIndex = partMap[part].colors.indexOf(CurrentColor[part]);
-    if (currentColorIndex === length - 1) {
+    if (currentColorIndex === partMap[part].colors.length - 1) {
       CurrentColor[part] = partMap[part].colors[0];
     } else {
       CurrentColor[part] = partMap[part].colors[currentColorIndex + 1];
@@ -83,13 +82,14 @@
   var getWizardPartClickHandler = function (part) {
     return function () {
       var map = partMap[part];
-      var targetElement = map.element;
-      changeCurrentColor(part);
+      var element = player.querySelector(map.selector);
+      incrementColor(part);
       var input = player.querySelector('input[name=\"' + part + '-color\"]');
-      targetElement.style[map.cssProperty] = CurrentColor[part];
+      element.style[map.cssProperty] = CurrentColor[part];
       input.value = CurrentColor[part];
-      window.similarWizardsRender
-        .renewSimilarWizards(getSorterWizards());
+      if (part !== 'fireball') {
+        window.similarWizards.renewSimilarWizards(getSorterWizards());
+      }
     };
   };
 
@@ -98,15 +98,16 @@
   });
 
   window.changeColors = {
+    getSorterWizards: getSorterWizards,
     addClickListeners: function () {
       PARTS.forEach(function (item, i) {
-        partMap[item].element
+        player.querySelector(partMap[item].selector)
           .addEventListener('click', partHandlers[i]);
       });
     },
     removeClickListeners: function () {
       PARTS.forEach(function (item, i) {
-        partMap[item].element
+        player.querySelector(partMap[item].selector)
           .removeEventListener('click', partHandlers[i]);
       });
     },

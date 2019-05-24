@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
+  var Status = {SUCCESS: 200, NOT_FOUND: 404};
   var TIMEOUT = 5000;
   var URL = 'https://js.dump.academy/code-and-magick';
-  var Status = {SUCCESS: 200, NOT_FOUND: 404};
 
   /*
     TODO: определить xhr через расширение прототипа XMLHttpRequest
