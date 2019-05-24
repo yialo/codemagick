@@ -58,7 +58,7 @@
     return 0;
   };
 
-  var getSorterWizards = function () {
+  var getSortedWizards = function () {
     return window.similarWizards.data.slice()
       .sort(function (left, right) {
         var rankDiff = getRank(right) - getRank(left);
@@ -88,8 +88,8 @@
       element.style[map.cssProperty] = CurrentColor[part];
       var input = player.querySelector('input[name=\"' + part + '-color\"]');
       input.value = CurrentColor[part];
-      if (part !== 'fireball') {
-        window.similarWizards.update(getSorterWizards());
+      if (part !== 'fireball' && window.backend.isDownloaded) {
+        window.similarWizards.update(getSortedWizards());
       }
     };
   };
@@ -105,7 +105,7 @@
   };
 
   window.changeColors = {
-    getSorterWizards: getSorterWizards,
+    getSorterWizards: getSortedWizards,
     addClickListeners: manageClickListeners('add'),
     removeClickListeners: manageClickListeners('remove'),
   };
