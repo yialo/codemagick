@@ -15,5 +15,10 @@
 
       return secondWord.concat(' ', firstWord);
     },
+    clearChildren: function (parent) {
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
+    },
   };
 }());

@@ -59,9 +59,5 @@
   setupOpener.addEventListener('click', setupOpenerClickHandler);
   setupOpenerIcon.addEventListener('keydown', setupOpenerIconKeydownHandler);
 
-  window.setupShow = {
-    closeSetup: function () {
-      closeSetup();
-    },
-  };
+  window.setupShow = {closeSetup: closeSetup};
 }());

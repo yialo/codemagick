@@ -38,18 +38,18 @@
     evt.preventDefault();
   };
 
+  var manageFormEventListeners = function (action) {
+    var method = action + 'EventListener';
+    return function () {
+      form[method]('submit', formSubmitHandler);
+      usernameField[method]('invalid', usernameFieldInvalidHandler);
+      usernameField[method]('input', usernameFieldInputHandler);
+    };
+  };
+
   window.upload = {
-    addFormEventListeners: function () {
-      form.addEventListener('submit', formSubmitHandler);
-      usernameField.addEventListener('invalid', usernameFieldInvalidHandler);
-      usernameField.addEventListener('input', usernameFieldInputHandler);
-    },
-    removeFormEventListeners: function () {
-      form.removeEventListener('submit', formSubmitHandler);
-      usernameField
-        .removeEventListener('invalid', usernameFieldInvalidHandler);
-      usernameField.removeEventListener('input', usernameFieldInputHandler);
-    },
+    addFormEventListeners: manageFormEventListeners('add'),
+    removeFormEventListeners: manageFormEventListeners('remove'),
     resetInputField: function () {
       if (!usernameField.validity.valid) {
         usernameField.value = 'Синий Пендальф';

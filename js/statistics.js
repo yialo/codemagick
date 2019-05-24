@@ -30,7 +30,7 @@
       return Cloud.getContentStart('Y') + this.STRING_HEIGHT;
     },
     getStartY: function () {
-      return this.getSecondLine() + this.STRING_HEIGHT * 2 + this.MARGIN_BOTTOM;
+      return (this.getSecondLine() + this.STRING_HEIGHT * 2 + this.MARGIN_BOTTOM);
     },
   };
 
@@ -93,7 +93,8 @@
 
       var barHeight = time * timeColumnUnit;
       var barRelativeY = Bar.MAX_HEIGHT - barHeight;
-      var barContentStartX = Cloud.getContentStart('X') + (Bar.WIDTH + Bar.GAP) * i;
+      var barContentStartX = Cloud.getContentStart('X')
+        + (Bar.WIDTH + Bar.GAP) * i;
 
       ctx.fillRect(
           barContentStartX,

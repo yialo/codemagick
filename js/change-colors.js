@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var player = window.domElements.setup.querySelector('.setup-player');
   var partMap = {
     'coat': {
       selector: '.wizard-coat',
@@ -71,45 +70,43 @@
   };
 
   var incrementColor = function (part) {
-    var currentColorIndex = partMap[part].colors.indexOf(CurrentColor[part]);
-    if (currentColorIndex === partMap[part].colors.length - 1) {
-      CurrentColor[part] = partMap[part].colors[0];
+    var colors = partMap[part].colors;
+    var currentColorIndex = colors.indexOf(CurrentColor[part]);
+    if (currentColorIndex === colors.length - 1) {
+      CurrentColor[part] = colors[0];
     } else {
-      CurrentColor[part] = partMap[part].colors[currentColorIndex + 1];
+      CurrentColor[part] = colors[currentColorIndex + 1];
     }
   };
 
+  var player = window.domElements.setup.querySelector('.setup-player');
   var getWizardPartClickHandler = function (part) {
     return function () {
+      incrementColor(part);
       var map = partMap[part];
       var element = player.querySelector(map.selector);
-      incrementColor(part);
-      var input = player.querySelector('input[name=\"' + part + '-color\"]');
       element.style[map.cssProperty] = CurrentColor[part];
+      var input = player.querySelector('input[name=\"' + part + '-color\"]');
       input.value = CurrentColor[part];
       if (part !== 'fireball') {
-        window.similarWizards.renewSimilarWizards(getSorterWizards());
+        window.similarWizards.update(getSorterWizards());
       }
     };
   };
 
-  var partHandlers = PARTS.map(function (part) {
-    return getWizardPartClickHandler(part);
-  });
+  var manageClickListeners = function (action) {
+    return function () {
+      PARTS.forEach(function (part) {
+        var target = player.querySelector(partMap[part].selector);
+        var clickHandler = getWizardPartClickHandler(part);
+        target[action + 'EventListener']('click', clickHandler);
+      });
+    };
+  };
 
   window.changeColors = {
     getSorterWizards: getSorterWizards,
-    addClickListeners: function () {
-      PARTS.forEach(function (item, i) {
-        player.querySelector(partMap[item].selector)
-          .addEventListener('click', partHandlers[i]);
-      });
-    },
-    removeClickListeners: function () {
-      PARTS.forEach(function (item, i) {
-        player.querySelector(partMap[item].selector)
-          .removeEventListener('click', partHandlers[i]);
-      });
-    },
+    addClickListeners: manageClickListeners('add'),
+    removeClickListeners: manageClickListeners('remove'),
   };
 }());

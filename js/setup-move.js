@@ -47,12 +47,14 @@
     document.addEventListener('mouseup', documentMouseupHandler);
   };
 
+  var manageUserpicMousedownListener = function (action) {
+    return function () {
+      userpic[action + 'EventListener']('mousedown', userpicMousedownHandler);
+    };
+  };
+
   window.setupMove = {
-    addUserpicMousedownListener: function () {
-      userpic.addEventListener('mousedown', userpicMousedownHandler);
-    },
-    removeUserpicMousedownListener: function () {
-      userpic.removeEventListener('mousedown', userpicMousedownHandler);
-    },
+    addUserpicMousedownListener: manageUserpicMousedownListener('add'),
+    removeUserpicMousedownListener: manageUserpicMousedownListener('remove'),
   };
 }());

@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  window.similarWizards = {};
   var createSimilarWizard = function (wizardData) {
     var wizardElement = document.querySelector('#similar-wizard-template')
       .content.querySelector('.setup-similar-item')
@@ -15,47 +16,40 @@
     return wizardElement;
   };
 
+  var AMOUNT_OF_SLOTS = 4;
   var setup = window.domElements.setup;
   var container = setup.querySelector('.setup-similar');
+  var wizardsList = container.querySelector('.setup-similar-list');
+
+  var updateSimilarWizards = function (wizardsData) {
+    window.utilities.clearChildren(wizardsList);
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < AMOUNT_OF_SLOTS; i += 1) {
+      var newWizard = createSimilarWizard(wizardsData[i]);
+      fragment.appendChild(newWizard);
+    }
+    wizardsList.appendChild(fragment);
+  };
   var addSimilarWizards = function (wizardsData) {
     window.similarWizards.data = wizardsData;
-    window.similarWizards
-      .renewSimilarWizards(window.changeColors.getSorterWizards());
+    updateSimilarWizards(window.changeColors.getSorterWizards());
     container.classList.remove('hidden');
   };
 
-  var AMOUNT_OF_SLOTS = 4;
-
-  window.similarWizards = {
-    renewSimilarWizards: function (wizardsData) {
-      var wizardsList = container.querySelector('.setup-similar-list');
-      var fragment = document.createDocumentFragment();
-
-      while (wizardsList.firstChild) {
-        wizardsList.removeChild(wizardsList.firstChild);
-      }
-
-      for (var i = 0; i < AMOUNT_OF_SLOTS; i += 1) {
-        var newWizard = createSimilarWizard(wizardsData[i]);
-        fragment.appendChild(newWizard);
-      }
-      wizardsList.appendChild(fragment);
-    },
-    showErrorMessage: function (errMessage) {
-      var node = document.createElement('span');
-      node.style.position = 'absolute';
-      node.style.zIndex = '1';
-      node.style.top = '10px';
-      node.style.left = '50%';
-      node.style.transform = 'translateX(-50%)';
-      node.style.color = 'red';
-      node.textContent = errMessage;
-      setup.insertBefore(node, setup.firstChild);
-    },
+  var showErrorMessage = function (errMessage) {
+    var node = document.createElement('span');
+    node.style.position = 'absolute';
+    node.style.zIndex = '1';
+    node.style.top = '10px';
+    node.style.left = '50%';
+    node.style.transform = 'translateX(-50%)';
+    node.style.color = 'red';
+    node.textContent = errMessage;
+    setup.insertBefore(node, setup.firstChild);
   };
 
-  window.backend.download(
-      addSimilarWizards,
-      window.similarWizards.showErrorMessage
-  );
+  window.backend.download(addSimilarWizards, showErrorMessage);
+
+  window.similarWizards.update = updateSimilarWizards;
+  window.similarWizards.showErrorMessage = showErrorMessage;
 }());
