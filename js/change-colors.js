@@ -80,7 +80,7 @@
   };
 
   var player = window.domElements.setup.querySelector('.setup-player');
-  var getWizardPartClickHandler = function (part) {
+  var getPartClickHandler = function (part) {
     return function () {
       incrementColor(part);
       var map = partMap[part];
@@ -88,8 +88,10 @@
       element.style[map.cssProperty] = CurrentColor[part];
       var input = player.querySelector('input[name=\"' + part + '-color\"]');
       input.value = CurrentColor[part];
-      if (part !== 'fireball' && window.backend.isDownloaded) {
-        window.similarWizards.update(getSortedWizards());
+      if (window.backend.isDownloaded) {
+        window.debounce.set(function () {
+          window.similarWizards.update(getSortedWizards());
+        });
       }
     };
   };
@@ -98,7 +100,7 @@
     return function () {
       PARTS.forEach(function (part) {
         var target = player.querySelector(partMap[part].selector);
-        var clickHandler = getWizardPartClickHandler(part);
+        var clickHandler = getPartClickHandler(part);
         target[action + 'EventListener']('click', clickHandler);
       });
     };
