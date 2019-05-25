@@ -5,16 +5,12 @@
 
   window.debounce = {
     create: function (callback) {
-      var lastTimeout = null;
-
+      var lastTimeout;
       return function () {
-        var args = arguments;
         if (lastTimeout) {
           clearTimeout(lastTimeout);
         }
-        lastTimeout = setTimeout(function () {
-          callback.apply(null, args);
-        }, LATENCY);
+        lastTimeout = setTimeout(callback, LATENCY);
       };
     },
   };
