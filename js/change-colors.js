@@ -81,6 +81,9 @@
 
   var player = window.domElements.setup.querySelector('.setup-player');
   var getPartClickHandler = function (part) {
+    var clickDebounce = window.debounce.create(function () {
+      window.similarWizards.update(getSortedWizards());
+    });
     return function () {
       incrementColor(part);
       var map = partMap[part];
@@ -89,9 +92,7 @@
       var input = player.querySelector('input[name=\"' + part + '-color\"]');
       input.value = CurrentColor[part];
       if (window.backend.isDownloaded) {
-        window.debounce.set(function () {
-          window.similarWizards.update(getSortedWizards());
-        });
+        clickDebounce();
       }
     };
   };
