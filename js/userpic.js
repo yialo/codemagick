@@ -24,5 +24,12 @@
     }
   };
 
-  fileChooser.addEventListener('change', fileChooserChangeHandler);
+  window.userpic = {
+    manageEventListener: function (action) {
+      fileChooser[action + 'EventListener'](
+          'change',
+          fileChooserChangeHandler
+      );
+    },
+  };
 }());

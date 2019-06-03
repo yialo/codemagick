@@ -12,6 +12,7 @@
     setupCloser.addEventListener('click', setupCloserClickHandler);
     setupCloser.addEventListener('keydown', setupCloserKeydownHandler);
     document.addEventListener('keydown', documentEscPressHandler);
+    window.userpic.manageEventListener('add');
     window.setupMove.addUserpicMousedownListener();
     window.changeColors.addClickListeners();
     window.upload.addFormEventListeners();
@@ -23,6 +24,7 @@
     setupCloser.removeEventListener('click', setupCloserClickHandler);
     setupCloser.removeEventListener('keydown', setupCloserKeydownHandler);
     document.removeEventListener('keydown', documentEscPressHandler);
+    window.userpic.manageEventListener('remove');
     window.setupMove.removeUserpicMousedownListener();
     window.changeColors.removeClickListeners();
     window.upload.removeFormEventListeners();
