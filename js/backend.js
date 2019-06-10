@@ -6,7 +6,8 @@
   var TIMEOUT = 5000;
   var URL = 'https://js.dump.academy/code-and-magick';
 
-  var getXhr = function (onSuccessCallback, onErrorCallback) {
+  var getXhr = function (direction, onSuccessCallback, onErrorCallback) {
+    var messagePartialMap = {'get': 'получить', 'send': 'отправить'};
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.timeout = TIMEOUT;
@@ -19,22 +20,20 @@
           onErrorCallback('Неверный адрес');
           break;
         default:
-          onErrorCallback(
-              'Статус ответа: ' + xhr.status + ' ' + xhr.statusText
-          );
+          onErrorCallback('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
     xhr.addEventListener('error', function () {
       onErrorCallback('Ошибка сетевого соединения');
     });
     xhr.addEventListener('timeout', function () {
-      onErrorCallback('Данные не удалось получить в течение ' + xhr.timeout / 1000 + ' секунд');
+      onErrorCallback('Данные не удалось ' + messagePartialMap[direction] + ' в течение ' + xhr.timeout / 1000 + ' секунд');
     });
     return xhr;
   };
 
   window.backend.upload = function (data, successHandler, errorHandler) {
-    var xhr = getXhr(successHandler, errorHandler);
+    var xhr = getXhr('send', successHandler, errorHandler);
     xhr.open('POST', URL);
     xhr.send(data);
   };
@@ -44,7 +43,7 @@
       window.backend.isDownloaded = true;
       successHandler(response);
     };
-    var xhr = getXhr(successHandlerWrapper, errorHandler);
+    var xhr = getXhr('get', successHandlerWrapper, errorHandler);
     xhr.open('GET', URL + '/data');
     xhr.send();
   };
