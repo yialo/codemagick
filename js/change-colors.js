@@ -108,7 +108,7 @@
   };
 
   window.changeColors = {
-    getSorterWizards: getSortedWizards,
+    getSortedWizards: getSortedWizards,
     addClickListeners: manageClickListeners('add'),
     removeClickListeners: manageClickListeners('remove'),
   };

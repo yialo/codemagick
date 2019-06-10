@@ -40,7 +40,7 @@
       fragment.appendChild(newWizardElement);
     }
     wizardsList.appendChild(fragment);
-    updateSimilarWizards(window.changeColors.getSorterWizards());
+    updateSimilarWizards(window.changeColors.getSortedWizards());
     container.classList.remove('hidden');
   };
 
